@@ -48,6 +48,10 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+    scroll-behavior: smooth;
+}
+
 html, body {
     background: var(--nsw-off-white);
     color: var(--nsw-black);
@@ -940,7 +944,7 @@ footer {
 <!-- ==========================================================
      MASTHEAD
      ========================================================== -->
-<div class="masthead">
+<div class="masthead" id="top">
     <div class="masthead-inner">
         <div class="masthead-left">
             <svg class="waratah" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
@@ -956,9 +960,9 @@ footer {
             </div>
         </div>
         <div class="masthead-right">
-            <a href="#">Trip Planner</a>
-            <a href="#">Opal</a>
-            <a href="#" style="font-weight:600;border-bottom-color:rgba(255,255,255,0.4)">Joule</a>
+            <a href="https://transportnsw.info/trip" target="_blank" rel="noopener">Trip Planner</a>
+            <a href="https://transportnsw.info/tickets-fares" target="_blank" rel="noopener">Opal</a>
+            <a href="#top" style="font-weight:600;border-bottom-color:rgba(255,255,255,0.4)" aria-current="page">Joule</a>
         </div>
     </div>
 </div>
@@ -976,7 +980,7 @@ footer {
         <span class="ticker-item up"><span>Brent crude</span><strong>US$90.89</strong></span>
         <span class="ticker-item dot"><span>Sydney ULP avg</span><strong>213.1 c/L</strong></span>
         <span class="ticker-item alert"><span>Sydney diesel avg</span><strong>318.1 c/L</strong></span>
-        <span class="ticker-item up"><span>Strait of Hormuz</span><strong>Reopened 17 Apr</strong></span>
+        <span class="ticker-item alert"><span>Strait of Hormuz</span><strong>Contested — passage restricted</strong></span>
         <span class="ticker-item dot"><span>Federal excise (halved)</span><strong>26.3 c/L</strong></span>
         <span class="ticker-item dot"><span>Last update</span><strong id="tk-ts">just now</strong></span>
     </div>
@@ -994,7 +998,7 @@ footer {
             <div class="hero-meta">
                 <div>
                     <strong>Why it matters today</strong>
-                    Australia holds just 29 days of diesel cover and 39 days of petrol. The Strait of Hormuz reopened on 17 April after a 50-day disruption that pushed Sydney fuel prices to record highs. Every kilometre you don't drive is a litre that stays in the national reserve for essential services.
+                    Australia holds just 29 days of diesel cover and 39 days of petrol. Around 20% of the world's seaborne oil passes through the Strait of Hormuz — a waterway that has been disrupted for weeks and whose status remains <a href="https://www.dcceew.gov.au/about/news/securing-australias-fuel-supply" target="_blank" rel="noopener" style="color:#cbedfd; text-decoration:underline">contested and volatile</a>. Every kilometre you don't drive is a litre that stays in the national reserve for essential services.
                 </div>
             </div>
         </div>
@@ -1065,6 +1069,13 @@ footer {
                 <div>Diesel cover<br><strong>29 days</strong></div>
                 <div>VPP firming<br><strong>412 MW</strong></div>
             </div>
+            <div style="text-align:center; margin-top: 12px; font-size: 11px; color: var(--nsw-grey);">
+                Stockhold figures:
+                <a href="https://www.dcceew.gov.au/energy/security/australias-fuel-security/measures-of-liquid-fuel-stocks" target="_blank" rel="noopener" style="color: var(--nsw-navy); text-decoration: underline;">DCCEEW Liquid Fuel Stocks</a>
+                &nbsp;·&nbsp;
+                Prices:
+                <a href="https://www.fuelcheck.nsw.gov.au/" target="_blank" rel="noopener" style="color: var(--nsw-navy); text-decoration: underline;">NSW FuelCheck</a>
+            </div>
         </div>
     </div>
 </section>
@@ -1108,31 +1119,43 @@ footer {
                 </div>
 
                 <div class="field" id="corridor-field">
-                    <label for="m-corridor">Corridor</label>
+                    <label for="m-corridor">Route or corridor</label>
                     <select id="m-corridor">
-                        <optgroup label="Western Sydney">
-                            <option value="blacktown">Blacktown / Mount Druitt — T1 Line</option>
-                            <option value="penrith">Penrith / St Marys — T1 Line</option>
+                        <optgroup label="🚆 Train corridors — Greater Sydney">
+                            <option value="blacktown">Blacktown / Mount Druitt — T1 Western</option>
+                            <option value="penrith">Penrith / St Marys — T1 Western</option>
                             <option value="parramatta">Parramatta — T1 / T5</option>
-                        </optgroup>
-                        <optgroup label="South-Western Sydney">
-                            <option value="campbelltown">Campbelltown — T8 Line</option>
-                            <option value="liverpool">Liverpool — T2 / T3</option>
-                            <option value="bankstown">Bankstown — T3 Line</option>
-                        </optgroup>
-                        <optgroup label="Northern / Central Coast">
-                            <option value="gosford">Gosford / Wyong — Central Coast &amp; Newcastle Line</option>
+                            <option value="campbelltown">Campbelltown — T8 Airport &amp; South</option>
+                            <option value="liverpool">Liverpool — T2</option>
+                            <option value="bankstown">Bankstown — T3</option>
                             <option value="chatswood">Chatswood — Metro / T1</option>
                         </optgroup>
-                        <optgroup label="Illawarra">
-                            <option value="wollongong">Wollongong — South Coast Line</option>
-                        </optgroup>
-                        <optgroup label="Regional">
-                            <option value="lithgow">Lithgow — Blue Mountains Line</option>
+                        <optgroup label="🚆 Train corridors — Intercity">
+                            <option value="gosford">Gosford / Wyong — Central Coast &amp; Newcastle</option>
+                            <option value="wollongong">Wollongong — South Coast</option>
+                            <option value="lithgow">Lithgow — Blue Mountains</option>
                             <option value="bathurst">Bathurst — Central West coach</option>
                         </optgroup>
-                        <optgroup label="Inner / Eastern Sydney">
-                            <option value="inner">Inner Sydney / CBD</option>
+                        <optgroup label="🚍 Bus routes — Eastern / Inner Sydney">
+                            <option value="b1">B1 B-Line — Mona Vale → Wynyard</option>
+                            <option value="r350">350 — Bondi Junction → Airport</option>
+                            <option value="r380">380 — Bondi Beach → Circular Quay</option>
+                            <option value="r333">333 — Bondi Beach → Circular Quay (PrePay)</option>
+                            <option value="r400">400 — Bondi Junction → Eastgardens</option>
+                            <option value="r370">370 — Coogee → Leichhardt</option>
+                            <option value="r891">891 — Central → UNSW</option>
+                        </optgroup>
+                        <optgroup label="🚍 Bus routes — Cross-town / Western">
+                            <option value="m90">M90 — Liverpool → Burwood</option>
+                            <option value="m91">M91 — Parramatta → Hurstville</option>
+                            <option value="t80">T80 — Liverpool ↔ Parramatta (T-Way)</option>
+                            <option value="r545">545 — Chatswood → Parramatta</option>
+                            <option value="r500">500 — Central → Olympic Park</option>
+                            <option value="r610x">610X — Castle Hill → Wynyard (express)</option>
+                            <option value="rL90">L90 — Palm Beach → City (Limited)</option>
+                        </optgroup>
+                        <optgroup label="🏙 Inner Sydney">
+                            <option value="inner">Inner Sydney / CBD — multiple options</option>
                         </optgroup>
                     </select>
                 </div>
@@ -1202,7 +1225,7 @@ footer {
             <div class="suggest-head">Joule suggestion</div>
             <div class="suggest-body" id="suggest-body">
                 <strong>Swap one car commute a week for the T1 train.</strong>
-                With Sydney ULP at 213.1 c/L and diesel reserves sitting at 29 days, every avoided round-trip returns about 3.2 L of petrol to the reserve and saves you roughly $6.80 at the pump. Over a year, that's about 166 L — a full tank and a half.
+                With Sydney ULP at 213.1 c/L and diesel reserves sitting at 29 days, a single weekly swap returns about 3.2 L of petrol to the reserve each week — roughly 166 L over a year, or about 3 tanks of petrol, saving you about $354 at the pump.
             </div>
         </div>
     </div>
@@ -1247,7 +1270,7 @@ footer {
         <div class="status-item">
             <div class="sl">Brent crude</div>
             <div class="sv">90.89<span class="su">USD/bbl</span></div>
-            <div class="st up">↓ 9% since Hormuz reopened</div>
+            <div class="st">Volatile — Hormuz passage disputed</div>
         </div>
     </div>
 
@@ -1297,21 +1320,21 @@ footer {
         <div>
             <h4>Data sources</h4>
             <ul>
-                <li>DCCEEW Australian Petroleum Statistics</li>
-                <li>AEMO NEM data dashboard</li>
-                <li>NRMA Weekly Fuel Report</li>
-                <li>NSW FuelCheck open data</li>
-                <li>ACCC Fuel Price Monitoring</li>
-                <li>NSW PDRS Virtual Power Plant incentive</li>
+                <li><a href="https://www.energy.gov.au/energy-data/australian-petroleum-statistics" target="_blank" rel="noopener">DCCEEW Australian Petroleum Statistics</a></li>
+                <li><a href="https://www.dcceew.gov.au/energy/security/australias-fuel-security/measures-of-liquid-fuel-stocks" target="_blank" rel="noopener">DCCEEW liquid fuel stocks</a></li>
+                <li><a href="https://www.aemo.com.au/energy-systems/electricity/national-electricity-market-nem/data-nem/data-dashboard-nem/" target="_blank" rel="noopener">AEMO NEM data dashboard</a></li>
+                <li><a href="https://www.fuelcheck.nsw.gov.au/" target="_blank" rel="noopener">NSW FuelCheck (live prices)</a></li>
+                <li><a href="https://www.accc.gov.au/consumers/petrol-and-fuel/petrol-price-cycles-in-the-5-largest-cities" target="_blank" rel="noopener">ACCC Fuel Price Monitoring</a></li>
+                <li><a href="https://www.energy.nsw.gov.au/households/grants-rebates/household-energy-saving-upgrades/connect-your-battery-virtual-power-plant" target="_blank" rel="noopener">NSW PDRS Virtual Power Plant incentive</a></li>
             </ul>
         </div>
         <div>
             <h4>Plan a trip</h4>
             <ul>
-                <li><a href="https://transportnsw.info">Trip Planner</a></li>
-                <li><a href="https://transportnsw.info/tickets-opal">Opal fares</a></li>
-                <li><a href="https://transportnsw.info/alerts/all">Service alerts</a></li>
-                <li><a href="#">Feedback on Joule</a></li>
+                <li><a href="https://transportnsw.info/trip" target="_blank" rel="noopener">Trip Planner</a></li>
+                <li><a href="https://transportnsw.info/tickets-fares" target="_blank" rel="noopener">Opal fares</a></li>
+                <li><a href="https://transportnsw.info/alerts/all" target="_blank" rel="noopener">Service alerts</a></li>
+                <li><a href="https://transportnsw.info/" target="_blank" rel="noopener">transportnsw.info</a></li>
             </ul>
         </div>
     </div>
@@ -1324,50 +1347,108 @@ footer {
 <script>
 // ==========================================================
 // LIVE STATE DATA — April 2026
-// Real-world values from published sources (see footer for provenance):
-//   • Brent: $90.89/bbl (18 Apr 2026, oilpriceapi live)
-//   • Sydney ULP avg: 213.1 c/L (NRMA/Petrolmate, 18 Apr 2026)
-//   • Sydney diesel avg: 318.1 c/L (NRMA, week to 14 Apr 2026)
-//   • AU petrol stockhold: 39 days; diesel 29 days (DCCEEW/DISER, Apr 2026)
+// Real-world values from published sources. In a production deployment these
+// would be fetched every 15 min from the following official APIs:
+//   • Fuel prices    → NSW FuelCheck API (fuelcheck.nsw.gov.au)
+//   • Fuel reserves  → DCCEEW Liquid Fuels Gateway / MSO weekly publication
+//   • Grid demand    → AEMO NEM data dashboard (5-min dispatch)
+//   • Brent crude    → ICE futures feed
+// Values as of 18 Apr 2026:
+//   • Brent: $90.89/bbl (ICE futures, volatile on contested Hormuz passage)
+//   • Sydney ULP avg: 213.1 c/L (NRMA Weekly Fuel Report)
+//   • Sydney diesel avg: 318.1 c/L (NRMA)
+//   • AU petrol stockhold: 39 days; diesel 29 days (DCCEEW MSO, Apr 2026)
 //   • Half-excise cut: -26.3 c/L in effect 1 Apr – 30 Jun 2026
-// The FSI is a composite: diesel cover days × 2 + trajectory adjustment
+// The FSI is a composite: diesel cover days × 2 + geopolitical risk adjustment.
 // ==========================================================
 const STATE = {
-    fsi: 58,              // Fuel Security Index (composite) — April 2026 post-Hormuz reopening
-    fuelDaysPetrol: 39,   // days of petrol cover (DCCEEW, Apr 2026)
-    fuelDaysDiesel: 29,   // days of diesel cover (DCCEEW, Apr 2026)
+    fsi: 58,              // Fuel Security Index (composite) — contested Hormuz situation
+    fuelDaysPetrol: 39,   // days of petrol cover (DCCEEW MSO, Apr 2026)
+    fuelDaysDiesel: 29,   // days of diesel cover (DCCEEW MSO, Apr 2026)
     fuelDaysJet: 30,      // days of jet fuel cover
     gridPeakMW: 10200,    // NSW peak operational demand typical shoulder season (AEMO)
     vppFiring: 412,       // MW — indicative NSW PDRS/VPP dispatch capacity
     brent: 90.89,         // USD/bbl (18 Apr 2026)
     tripsShifted: 3127,   // simulated user-level counter
-    hormuzStatus: 'Reopened 17 Apr — traffic resuming'
+    hormuzStatus: 'Contested — passage disputed'
 };
 
 // ==========================================================
-// CORRIDOR DEFINITIONS — pairs corridor to representative services
+// CORRIDOR / ROUTE DEFINITIONS
+// Real and close-estimate attributes for NSW services.
+// type:      'rail' (train / metro / light rail) or 'bus'
+// transit:   line/route code for the colour chip
+// km:        typical full-corridor end-to-end distance (km)
+// freqPerHr: peak-hour service frequency
+// loadPct:   typical peak load factor (fraction of seated capacity used)
+// carDep:    car-dependence score for the residential catchment (0..1)
+// sources:   TfNSW timetables; NRMA/BusNSW route histories; rome2rio trip data;
+//            ABS 2021 Census journey-to-work mode share by LGA.
 // ==========================================================
 const CORRIDORS = {
-    blacktown:    { name: 'Blacktown / Mount Druitt',   transit: 'T1', line: 'T1', km: 36, freqPerHr: 12, loadPct: 0.62, carDep: 0.92 },
-    penrith:      { name: 'Penrith / St Marys',         transit: 'T1', line: 'T1', km: 58, freqPerHr: 10, loadPct: 0.58, carDep: 0.94 },
-    parramatta:   { name: 'Parramatta',                 transit: 'T1', line: 'T1', km: 22, freqPerHr: 18, loadPct: 0.72, carDep: 0.78 },
-    campbelltown: { name: 'Campbelltown',               transit: 'T8', line: 'T8', km: 52, freqPerHr: 8,  loadPct: 0.55, carDep: 0.94 },
-    liverpool:    { name: 'Liverpool',                  transit: 'T2', line: 'T2', km: 32, freqPerHr: 10, loadPct: 0.64, carDep: 0.88 },
-    bankstown:    { name: 'Bankstown',                  transit: 'T3', line: 'T3', km: 20, freqPerHr: 8,  loadPct: 0.58, carDep: 0.82 },
-    gosford:      { name: 'Gosford / Wyong',            transit: 'CCN', line: 'Newcastle & Central Coast', km: 76, freqPerHr: 4, loadPct: 0.45, carDep: 0.96 },
-    chatswood:    { name: 'Chatswood',                  transit: 'M',  line: 'Metro', km: 12, freqPerHr: 15, loadPct: 0.70, carDep: 0.65 },
-    wollongong:   { name: 'Wollongong',                 transit: 'SCO', line: 'South Coast', km: 86, freqPerHr: 3, loadPct: 0.50, carDep: 0.86 },
-    lithgow:      { name: 'Lithgow',                    transit: 'BMT', line: 'Blue Mountains', km: 140, freqPerHr: 2, loadPct: 0.42, carDep: 0.96 },
-    bathurst:     { name: 'Bathurst',                   transit: 'CWC', line: 'Central West Coach', km: 200, freqPerHr: 0.5, loadPct: 0.35, carDep: 0.98 },
-    inner:        { name: 'Inner Sydney / CBD',         transit: 'MUL', line: 'Multiple', km: 8, freqPerHr: 25, loadPct: 0.80, carDep: 0.48 }
+    // === Sydney Trains / Metro / Intercity (rail) ===
+    blacktown:    { name: 'Blacktown / Mount Druitt',       type: 'rail', transit: 'T1',  line: 'T1 Western',           km: 36,  freqPerHr: 12, loadPct: 0.62, carDep: 0.92 },
+    penrith:      { name: 'Penrith / St Marys',             type: 'rail', transit: 'T1',  line: 'T1 Western',           km: 58,  freqPerHr: 10, loadPct: 0.58, carDep: 0.94 },
+    parramatta:   { name: 'Parramatta',                     type: 'rail', transit: 'T1',  line: 'T1 / T5',              km: 22,  freqPerHr: 18, loadPct: 0.72, carDep: 0.78 },
+    campbelltown: { name: 'Campbelltown',                   type: 'rail', transit: 'T8',  line: 'T8 Airport & South',   km: 52,  freqPerHr: 8,  loadPct: 0.55, carDep: 0.94 },
+    liverpool:    { name: 'Liverpool',                      type: 'rail', transit: 'T2',  line: 'T2 Inner West & Leppington', km: 32, freqPerHr: 10, loadPct: 0.64, carDep: 0.88 },
+    bankstown:    { name: 'Bankstown',                      type: 'rail', transit: 'T3',  line: 'T3 Liverpool/Inner West',    km: 20, freqPerHr: 8,  loadPct: 0.58, carDep: 0.82 },
+    gosford:      { name: 'Gosford / Wyong',                type: 'rail', transit: 'CCN', line: 'Central Coast & Newcastle',  km: 76, freqPerHr: 4,  loadPct: 0.45, carDep: 0.96 },
+    chatswood:    { name: 'Chatswood',                      type: 'rail', transit: 'M',   line: 'Metro North West & Bankstown', km: 12, freqPerHr: 15, loadPct: 0.70, carDep: 0.65 },
+    wollongong:   { name: 'Wollongong',                     type: 'rail', transit: 'SCO', line: 'South Coast',          km: 86,  freqPerHr: 3,  loadPct: 0.50, carDep: 0.86 },
+    lithgow:      { name: 'Lithgow',                        type: 'rail', transit: 'BMT', line: 'Blue Mountains',       km: 140, freqPerHr: 2,  loadPct: 0.42, carDep: 0.96 },
+    bathurst:     { name: 'Bathurst',                       type: 'rail', transit: 'CWC', line: 'Central West Coach',   km: 200, freqPerHr: 0.5, loadPct: 0.35, carDep: 0.98 },
+    inner:        { name: 'Inner Sydney / CBD',             type: 'rail', transit: 'MUL', line: 'Multiple',             km: 8,   freqPerHr: 25, loadPct: 0.80, carDep: 0.48 },
+
+    // === Major Sydney bus routes ===
+    // B1 B-Line Northern Beaches express — 27 km, 5-min peak, double-deckers
+    b1:           { name: 'B1 B-Line — Mona Vale → Wynyard',          type: 'bus', transit: 'B1',  line: 'B-Line',               km: 27, freqPerHr: 12, loadPct: 0.85, carDep: 0.90 },
+    // 350 (ex-part of route 400) — Bondi Jct → Airport, ~13km, airport traffic
+    r350:         { name: '350 — Bondi Junction → Airport',           type: 'bus', transit: '350', line: 'Eastern Suburbs',      km: 13, freqPerHr: 6,  loadPct: 0.78, carDep: 0.68 },
+    // 380 — Circular Quay → Bondi Beach via Oxford St
+    r380:         { name: '380 — Bondi Beach → Circular Quay',        type: 'bus', transit: '380', line: 'Oxford St',            km: 10, freqPerHr: 12, loadPct: 0.80, carDep: 0.52 },
+    // 333 — prepay, Circular Quay → Watsons Bay / Bondi
+    r333:         { name: '333 — Bondi Beach → Circular Quay (PrePay)', type: 'bus', transit: '333', line: 'Eastern Express',    km: 9,  freqPerHr: 10, loadPct: 0.75, carDep: 0.55 },
+    // 370 — Coogee → Leichhardt, UNSW/Newtown spine
+    r370:         { name: '370 — Coogee → Leichhardt (UNSW)',         type: 'bus', transit: '370', line: 'Cross-Town',           km: 13, freqPerHr: 6,  loadPct: 0.72, carDep: 0.60 },
+    // 891 — Central → UNSW shuttle
+    r891:         { name: '891 — Central → UNSW',                     type: 'bus', transit: '891', line: 'University Shuttle',   km: 6,  freqPerHr: 12, loadPct: 0.88, carDep: 0.50 },
+    // M90 (one of two remaining Metrobus) — Liverpool → Burwood
+    m90:          { name: 'M90 — Liverpool → Burwood',                type: 'bus', transit: 'M90', line: 'Metrobus',             km: 23, freqPerHr: 6,  loadPct: 0.62, carDep: 0.84 },
+    // M91 — Parramatta → Hurstville
+    m91:          { name: 'M91 — Parramatta → Hurstville',            type: 'bus', transit: 'M91', line: 'Metrobus',             km: 27, freqPerHr: 4,  loadPct: 0.58, carDep: 0.86 },
+    // T80 — Liverpool ↔ Parramatta T-Way (only remaining T-route)
+    t80:          { name: 'T80 — Liverpool ↔ Parramatta (T-Way)',     type: 'bus', transit: 'T80', line: 'North-West T-Way',     km: 25, freqPerHr: 6,  loadPct: 0.60, carDep: 0.88 },
+    // 610X — Castle Hill → Wynyard express peak
+    r610x:        { name: '610X — Castle Hill → Wynyard (express)',   type: 'bus', transit: '610X', line: 'Hills Express',       km: 32, freqPerHr: 4,  loadPct: 0.72, carDep: 0.90 },
+    // 500 — Central → Sydney Olympic Park
+    r500:         { name: '500 — Central → Olympic Park',             type: 'bus', transit: '500', line: 'Inner West',           km: 15, freqPerHr: 4,  loadPct: 0.55, carDep: 0.68 },
+    // 545 — Chatswood → Parramatta cross-town
+    r545:         { name: '545 — Chatswood → Parramatta',             type: 'bus', transit: '545', line: 'Cross-Town',           km: 24, freqPerHr: 4,  loadPct: 0.52, carDep: 0.82 },
+    // L90 — Palm Beach → City limited stops, long Northern Beaches
+    rL90:         { name: 'L90 — Palm Beach → City (Limited)',        type: 'bus', transit: 'L90', line: 'Northern Beaches',     km: 36, freqPerHr: 2,  loadPct: 0.55, carDep: 0.94 },
+    // 400 — surviving Bondi Junction ↔ Eastgardens (airport precinct)
+    r400:         { name: '400 — Bondi Junction → Eastgardens',       type: 'bus', transit: '400', line: 'Eastern Suburbs',      km: 11, freqPerHr: 6,  loadPct: 0.70, carDep: 0.62 }
 };
 
-// Transport line colours (TfNSW official)
+// Transport line colours (TfNSW official + bus livery)
 const LINE_COLOURS = {
+    // Sydney Trains T-lines + intercity
     'T1': '#F99D1C', 'T2': '#0098CD', 'T3': '#F37021', 'T4': '#005AA3',
     'T5': '#C4258F', 'T6': '#7C3E21', 'T7': '#6F818E', 'T8': '#00954C',
-    'T9': '#D11F2F', 'M': '#0098CD', 'CCN': '#D11F2F', 'SCO': '#005AA3',
-    'BMT': '#F99D1C', 'CWC': '#6F818E', 'MUL': '#002664'
+    'T9': '#D11F2F',
+    // Sydney Metro
+    'M':  '#0098CD',
+    // Intercity
+    'CCN': '#D11F2F', 'SCO': '#005AA3', 'BMT': '#F99D1C', 'CWC': '#6F818E',
+    // B-Line (distinctive yellow/blue livery — use B-Line yellow)
+    'B1': '#FFD100',
+    // Buses — standard TfNSW bus blue
+    '350': '#00B5EF', '380': '#00B5EF', '333': '#00B5EF', '370': '#00B5EF',
+    '891': '#00B5EF', 'M90': '#00B5EF', 'M91': '#00B5EF', 'T80': '#00B5EF',
+    '610X': '#00B5EF', '500': '#00B5EF', '545': '#00B5EF', 'L90': '#00B5EF',
+    '400': '#00B5EF',
+    'MUL': '#002664'
 };
 
 // ==========================================================
@@ -1502,13 +1583,40 @@ function calcJouleScore(mode, corridor, km, freq, occ) {
     const carTime = km / 55 * 60;
     const timeRatio = impact.travelTime / carTime;
     let timeScore;
-    if (timeRatio <= 1.15) timeScore = 100;
-    else if (timeRatio <= 1.5) timeScore = 85;
-    else if (timeRatio <= 2.0) timeScore = 65;
-    else if (timeRatio <= 3.0) timeScore = 45;
-    else timeScore = 25;
 
-    const score = Math.round(fuelScore * 0.60 + corridorScore * 0.25 + timeScore * 0.15);
+    if (mode === 'active') {
+        // Active transport is scored by absolute practicality, not relative to car time.
+        // Cycling a round-trip of 10 km or less is a real commute for most people; beyond
+        // that the suggestion to "just cycle" stops being honest advice.
+        if (km <= 6)        timeScore = 100;  // very practical (≈12 min cycle each way)
+        else if (km <= 12)  timeScore = 95;   // practical (≈24 min each way)
+        else if (km <= 20)  timeScore = 75;   // e-bike or keen cyclist
+        else if (km <= 30)  timeScore = 40;   // serious commute only
+        else if (km <= 60)  timeScore = 15;   // rare dedicated cyclist
+        else                timeScore = 0;    // not a real recommendation
+    } else {
+        if (timeRatio <= 1.15)      timeScore = 100;
+        else if (timeRatio <= 1.5)  timeScore = 85;
+        else if (timeRatio <= 2.0)  timeScore = 65;
+        else if (timeRatio <= 3.0)  timeScore = 45;
+        else                        timeScore = 25;
+    }
+
+    let score = Math.round(fuelScore * 0.60 + corridorScore * 0.25 + timeScore * 0.15);
+
+    // Active transport gets a small fuel-security bonus when it's genuinely practical.
+    // At longer distances, the corridor score is also dampened to reflect that
+    // "active on a 100 km corridor" is not a real network contribution.
+    if (mode === 'active') {
+        if (timeScore >= 75) {
+            score = Math.min(100, score + 4);
+        } else if (timeScore <= 15) {
+            // At truly impractical distances, also soften the corridor-score credit —
+            // nobody is "absorbing spare capacity on the network" by cycling to Bathurst.
+            score = Math.round(score - 15);
+        }
+    }
+
     return { score, impact, fuelScore, corridorScore, timeScore };
 }
 
@@ -1539,14 +1647,24 @@ function suggestionFor(mode, corridor, km, freq, score) {
     const c = CORRIDORS[corridor];
 
     if (mode === 'car' && c.loadPct < 0.75 && score < 85) {
-        const saveLitres = (km * PETROL_L_100 / 100).toFixed(1);
-        const annualLitres = Math.round(saveLitres * freq * 48);
+        // Fuel saved by swapping ONE car trip a week for transit.
+        // One round-trip = km × L/100km litres.
+        const litresPerTrip = km * PETROL_L_100 / 100;
+        // Annual: 1 swap × 52 weeks. Round to whole litres.
+        const annualLitres = Math.round(litresPerTrip * 52);
+        const annualDollars = Math.round(annualLitres * PETROL_PRICE);
+        // Tank equivalency: avg passenger car tank ~55 L.
+        const tanks = Math.round(annualLitres / 55 * 10) / 10;
+        const tankText = tanks < 1.3 ? 'about a full tank'
+                       : tanks < 2.3 ? `about ${Math.round(tanks * 10) / 10} tanks of petrol`
+                       : `about ${Math.round(tanks)} tanks of petrol`;
+
         return {
             head: 'Joule suggestion',
-            body: `<strong>Swap one ${mode === 'car' ? 'car' : ''} commute a week for the ${c.line} ${c.transit === 'M' ? 'Metro' : c.transit === 'CCN' ? 'Central Coast line' : 'train'}.</strong>
+            body: `<strong>Swap one car commute a week for the ${c.line} ${c.transit === 'M' ? 'Metro' : c.transit === 'CCN' ? 'Central Coast line' : c.type === 'bus' ? 'bus' : 'train'}.</strong>
                    The service on this corridor has about ${Math.round((1 - c.loadPct) * 100)}% spare capacity at peak,
-                   so you'll have a seat. You'd return about <strong>${saveLitres} L of petrol</strong> to the reserve every week —
-                   roughly ${annualLitres} L a year, or a tank and a half.`
+                   so you'll have a seat. That single weekly swap returns about <strong>${litresPerTrip.toFixed(1)} L of petrol</strong> to the reserve each week —
+                   roughly <strong>${annualLitres} L</strong> over a year, or ${tankText}, saving you about <strong>$${annualDollars}</strong> at the pump.`
         };
     }
     if (mode === 'train' || mode === 'bus') {
@@ -1558,10 +1676,34 @@ function suggestionFor(mode, corridor, km, freq, score) {
         };
     }
     if (mode === 'active') {
+        if (km <= 6) {
+            return {
+                head: 'You\'re on the leaderboard',
+                body: `<strong>A short active trip is the highest-scoring option Joule can record.</strong>
+                       Zero fuel, zero grid draw, full credit. If this is a regular trip, you're a silent contributor to NSW's fuel cover.`
+            };
+        }
+        if (km <= 12) {
+            return {
+                head: 'Practical and powerful',
+                body: `<strong>Active transport at this distance is a genuine commute for most people.</strong>
+                       No fuel, no fare, no grid draw — every trip is pure contribution to the state's fuel reserve.
+                       Consider an e-bike if the hills are a problem.`
+            };
+        }
+        if (km <= 20) {
+            return {
+                head: 'Ambitious but doable',
+                body: `<strong>An e-bike makes this distance realistic; pure cycling is for the committed.</strong>
+                       The fuel impact is still zero, but for most commuters a transit option would score higher because it's actually sustainable week after week.
+                       If you can do this, Joule salutes you.`
+            };
+        }
         return {
-            head: 'You\'re on the leaderboard',
-            body: `<strong>Walking or cycling is the highest-score trip Joule can record.</strong>
-                   Zero fuel, zero grid draw, full credit. If this is a regular trip, you're a silent contributor to NSW's fuel cover.`
+            head: 'Honest suggestion',
+            body: `<strong>At this distance, cycling or walking isn't a practical everyday choice for most people.</strong>
+                   A train or bus on this corridor will score higher because Joule rewards options people can actually sustain.
+                   Consider the alternatives below.`
         };
     }
     return {
@@ -1622,35 +1764,70 @@ function render() {
 
 function renderCompare(corridor, km, freq, currentMode) {
     const c = CORRIDORS[corridor];
-    const options = [
-        { mode: 'train', label: 'Train', desc: `${c.line} line, seated ride` },
-        { mode: 'car', label: 'Car (solo)', desc: 'Private vehicle, one occupant' },
-        { mode: 'bus', label: 'Bus', desc: 'Local / express bus service' }
-    ];
 
-    // Calculate scores for each
+    // Pick the primary transit mode for this corridor based on its type.
+    // For rail corridors, compare { rail, car, active }.
+    // For bus routes, compare { bus, car, active }.
+    // We always include the active mode so users can see what it would score here.
+    let options;
+    if (c.type === 'bus') {
+        options = [
+            { mode: 'bus',    label: c.name.split(' — ')[0] || c.line, desc: `${c.line} — typical seated or standing trip` },
+            { mode: 'car',    label: 'Car (solo)',                      desc: 'Private vehicle, one occupant' },
+            { mode: 'active', label: 'Walk or cycle',                   desc: 'Zero fuel, zero grid draw' }
+        ];
+    } else {
+        // rail / intercity / inner Sydney
+        options = [
+            { mode: 'train',  label: c.line,              desc: `${c.line} — seated ride, pre-booked on long distance` },
+            { mode: 'car',    label: 'Car (solo)',        desc: 'Private vehicle, one occupant' },
+            { mode: 'active', label: 'Walk or cycle',     desc: 'Zero fuel, zero grid draw' }
+        ];
+    }
+
     const rows = options.map(o => {
         const r = calcJouleScore(o.mode, corridor, km, freq, o.mode === 'car' ? 1 : 0);
         return { ...o, ...r };
     });
 
-    // Sort by score desc
     rows.sort((a, b) => b.score - a.score);
 
     const html = rows.map((r, idx) => {
         const best = idx === 0 ? 'best' : '';
-        const col = LINE_COLOURS[r.mode === 'train' || r.mode === 'bus' ? c.transit : ''] || '#002664';
-        const chipBg = r.mode === 'train' ? (LINE_COLOURS[c.transit] || '#002664')
-                     : r.mode === 'bus' ? '#00B5EF'
-                     : '#6D7079';
-        const chipText = r.mode === 'train' ? c.transit
-                       : r.mode === 'bus' ? 'BUS'
-                       : 'CAR';
+
+        // Chip colour and text depend on the mode.
+        let chipBg, chipText, chipColour;
+        if (r.mode === 'train') {
+            chipBg = LINE_COLOURS[c.transit] || '#002664';
+            chipText = c.transit;
+            chipColour = readableTextOn(chipBg);
+        } else if (r.mode === 'bus') {
+            // If the corridor IS a bus route, use its own route code + colour (B-Line yellow etc).
+            chipBg = LINE_COLOURS[c.transit] || '#00B5EF';
+            chipText = c.transit;
+            chipColour = readableTextOn(chipBg);
+        } else if (r.mode === 'active') {
+            chipBg = '#00a908';
+            chipText = '⬢';  // geometric token — avoids emoji inconsistency
+            chipColour = '#ffffff';
+        } else { // car
+            chipBg = '#6D7079';
+            chipText = 'CAR';
+            chipColour = '#ffffff';
+        }
+
+        const kindLabel = r.mode === 'car' ? 'Private' :
+                          r.mode === 'active' ? 'Active' : 'Public';
+
+        const fuelDisplay = r.impact.litresPerWeek > 0
+            ? r.impact.litresPerWeek.toFixed(1) : '0';
+        const costDisplay = r.impact.cost > 0
+            ? '$' + r.impact.cost.toFixed(0) : 'Free';
 
         return `<div class="alt ${best}">
-            <div class="alt-head">${r.mode === 'car' ? 'Private' : 'Public'}</div>
+            <div class="alt-head">${kindLabel}</div>
             <div class="alt-mode">
-                <span class="line-chip" style="background:${chipBg}">${chipText}</span>
+                <span class="line-chip" style="background:${chipBg}; color:${chipColour}">${chipText}</span>
                 ${r.label}
             </div>
             <div class="alt-detail">${r.desc}</div>
@@ -1661,11 +1838,11 @@ function renderCompare(corridor, km, freq, currentMode) {
                 </div>
                 <div>
                     <div class="alt-stat-label">Fuel / week</div>
-                    <div class="alt-stat-val">${r.impact.litresPerWeek > 0 ? r.impact.litresPerWeek.toFixed(1) : '0'}<span class="u">L</span></div>
+                    <div class="alt-stat-val">${fuelDisplay}<span class="u">L</span></div>
                 </div>
                 <div>
                     <div class="alt-stat-label">Cost / week</div>
-                    <div class="alt-stat-val">$${r.impact.cost.toFixed(0)}</div>
+                    <div class="alt-stat-val">${costDisplay}</div>
                 </div>
                 <div>
                     <div class="alt-stat-label">Time / trip</div>
@@ -1675,6 +1852,18 @@ function renderCompare(corridor, km, freq, currentMode) {
         </div>`;
     }).join('');
     document.getElementById('compare-grid').innerHTML = html;
+}
+
+// Utility: given a background hex, return black or white text for WCAG-ish contrast.
+// Used so B-Line yellow (#FFD100) gets dark navy text, not white.
+function readableTextOn(hex) {
+    const h = hex.replace('#', '');
+    const r = parseInt(h.substr(0, 2), 16);
+    const g = parseInt(h.substr(2, 2), 16);
+    const b = parseInt(h.substr(4, 2), 16);
+    // relative luminance — simplified WCAG
+    const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return lum > 0.6 ? '#002664' : '#ffffff';
 }
 
 // ==========================================================
@@ -1691,6 +1880,21 @@ document.querySelectorAll('.mode-btn').forEach(btn => {
 
 document.getElementById('m-corridor').addEventListener('change', e => {
     S.corridor = e.target.value;
+    // Auto-align the planner mode with the corridor type, so users don't pick
+    // "train" on a bus-only route (which would compute meaningless numbers).
+    const c = CORRIDORS[S.corridor];
+    if (c.type === 'bus' && S.mode === 'train') {
+        S.mode = 'bus';
+        document.querySelectorAll('.mode-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.mode === 'bus');
+        });
+    } else if (c.type === 'rail' && S.mode === 'bus' && c.transit !== 'MUL') {
+        // user picked a rail corridor with "bus" selected — swap to train
+        S.mode = 'train';
+        document.querySelectorAll('.mode-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.mode === 'train');
+        });
+    }
     render();
 });
 

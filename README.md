@@ -91,15 +91,23 @@ Full scoring logic is in `index.html` under the `calcJouleScore` function.
 
 ---
 
-## Corridor data
+## Corridor and route data
 
-The 12 corridors in the planner are anchor points derived from the Transport for NSW commuter route dataset (April 2026 snapshot), intersected with 2021 Census journey-to-work mode share by LGA. Each corridor carries four attributes used in scoring:
+The planner covers **26 Sydney and NSW transport routes** in two groups:
 
-- Representative transit line (`T1`, `T8`, `Metro`, etc.)
-- Typical commute distance (km)
-- Service frequency (trains per hour at peak)
+**Train corridors (12):** T1 Western (Blacktown, Penrith, Mount Druitt, Parramatta), T8 Airport & South (Campbelltown), T2 Inner West (Liverpool), T3 (Bankstown), Metro North West (Chatswood), Central Coast & Newcastle, South Coast (Wollongong), Blue Mountains (Lithgow), Central West Coach (Bathurst), and an Inner Sydney multi-mode option.
+
+**Bus routes (13):** B1 B-Line (Mona Vale → Wynyard), 350 (Bondi Jct → Airport), 380 (Bondi Beach → Circular Quay), 333 (Bondi PrePay), 400 (Bondi Jct → Eastgardens), 370 (Coogee → Leichhardt), 891 (Central → UNSW), M90 (Liverpool → Burwood), M91 (Parramatta → Hurstville), T80 (Liverpool ↔ Parramatta T-Way), 545 (Chatswood → Parramatta), 500 (Central → Olympic Park), 610X (Castle Hill → Wynyard), L90 (Palm Beach → City).
+
+Each route carries four calibration attributes used in scoring:
+
+- Representative transit line and official TfNSW colour
+- Typical end-to-end distance (km)
+- Peak-hour service frequency
 - Peak load factor (fraction of seated capacity used)
-- Car-dependence score (0–1)
+- Car-dependence score for the residential catchment (0–1)
+
+Sources: Transport for NSW route timetables and GTFS data (April 2026 snapshot), NRMA/BusNSW route histories, Rome2Rio trip-time data for individual stop-to-stop distances, and ABS 2021 Census journey-to-work mode share by LGA. For routes with real-time load data available through the Transport for NSW Data Hub, the load factor would be refreshed live; for others, close estimates are used based on published patronage data.
 
 For a production deployment, these would be replaced with live GTFS feed consumption so that engineering works or disruptions on a line immediately re-weight the score for trips on that corridor.
 
