@@ -907,10 +907,15 @@ footer {
 }
 .ticker-inner {
     display: flex;
-    gap: 48px;
+    gap: 0;
     white-space: nowrap;
     animation: tick 45s linear infinite;
-    padding-left: 100%;
+}
+.ticker-set {
+    display: flex;
+    gap: 48px;
+    padding-right: 48px;
+    flex-shrink: 0;
 }
 .ticker-item {
     display: inline-flex;
@@ -930,7 +935,7 @@ footer {
 }
 @keyframes tick {
     from { transform: translateX(0); }
-    to { transform: translateX(-100%); }
+    to { transform: translateX(-50%); }
 }
 
 /* ==========================================================
@@ -972,17 +977,32 @@ footer {
      ========================================================== -->
 <div class="ticker" aria-label="Live NSW fuel and grid status">
     <div class="ticker-inner">
-        <span class="ticker-item dot"><span>NSW fuel security index</span><strong id="tk-fsi">58 / 100</strong></span>
-        <span class="ticker-item alert"><span>Diesel cover (AU)</span><strong>29 days</strong></span>
-        <span class="ticker-item alert"><span>Petrol cover (AU)</span><strong>39 days</strong></span>
-        <span class="ticker-item dot"><span>NSW grid demand</span><strong>10.2 GW</strong></span>
-        <span class="ticker-item dot"><span>VPP dispatch active</span><strong>412 MW</strong></span>
-        <span class="ticker-item up"><span>Brent crude</span><strong>US$90.89</strong></span>
-        <span class="ticker-item dot"><span>Sydney ULP avg</span><strong>213.1 c/L</strong></span>
-        <span class="ticker-item alert"><span>Sydney diesel avg</span><strong>318.1 c/L</strong></span>
-        <span class="ticker-item alert"><span>Strait of Hormuz</span><strong>Contested — passage restricted</strong></span>
-        <span class="ticker-item dot"><span>Federal excise (halved)</span><strong>26.3 c/L</strong></span>
-        <span class="ticker-item dot"><span>Last update</span><strong id="tk-ts">just now</strong></span>
+        <div class="ticker-set">
+            <span class="ticker-item dot"><span>NSW fuel security index</span><strong id="tk-fsi">58 / 100</strong></span>
+            <span class="ticker-item alert"><span>Diesel cover (AU)</span><strong>29 days</strong></span>
+            <span class="ticker-item alert"><span>Petrol cover (AU)</span><strong>39 days</strong></span>
+            <span class="ticker-item dot"><span>NSW grid demand</span><strong>10.2 GW</strong></span>
+            <span class="ticker-item dot"><span>VPP dispatch active</span><strong>412 MW</strong></span>
+            <span class="ticker-item up"><span>Brent crude</span><strong>US$90.89</strong></span>
+            <span class="ticker-item dot"><span>Sydney ULP avg</span><strong>213.1 c/L</strong></span>
+            <span class="ticker-item alert"><span>Sydney diesel avg</span><strong>318.1 c/L</strong></span>
+            <span class="ticker-item alert"><span>Strait of Hormuz</span><strong>Contested — passage restricted</strong></span>
+            <span class="ticker-item dot"><span>Federal excise (halved)</span><strong>26.3 c/L</strong></span>
+            <span class="ticker-item dot"><span>Last update</span><strong id="tk-ts">just now</strong></span>
+        </div>
+        <div class="ticker-set" aria-hidden="true">
+            <span class="ticker-item dot"><span>NSW fuel security index</span><strong id="tk-fsi-2">58 / 100</strong></span>
+            <span class="ticker-item alert"><span>Diesel cover (AU)</span><strong>29 days</strong></span>
+            <span class="ticker-item alert"><span>Petrol cover (AU)</span><strong>39 days</strong></span>
+            <span class="ticker-item dot"><span>NSW grid demand</span><strong>10.2 GW</strong></span>
+            <span class="ticker-item dot"><span>VPP dispatch active</span><strong>412 MW</strong></span>
+            <span class="ticker-item up"><span>Brent crude</span><strong>US$90.89</strong></span>
+            <span class="ticker-item dot"><span>Sydney ULP avg</span><strong>213.1 c/L</strong></span>
+            <span class="ticker-item alert"><span>Sydney diesel avg</span><strong>318.1 c/L</strong></span>
+            <span class="ticker-item alert"><span>Strait of Hormuz</span><strong>Contested — passage restricted</strong></span>
+            <span class="ticker-item dot"><span>Federal excise (halved)</span><strong>26.3 c/L</strong></span>
+            <span class="ticker-item dot"><span>Last update</span><strong id="tk-ts-2">just now</strong></span>
+        </div>
     </div>
 </div>
 
@@ -1009,54 +1029,67 @@ footer {
                 <div class="gauge-live">Live</div>
             </div>
             <div class="gauge-svg-wrap">
-                <svg viewBox="0 0 420 250" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <!-- geometry: centre (210,210), radius 160 -->
-                    <!-- background arc -->
-                    <path d="M 50 210 A 160 160 0 0 1 370 210"
-                          fill="none" stroke="#e6eaf0" stroke-width="24" stroke-linecap="round"/>
 
-                    <!-- coloured threshold bands (faded) -->
+                    <!-- coloured zone bands form the full track background -->
+                    <!-- STRESSED 0–25: red, muted -->
                     <path d="M 50 210 A 160 160 0 0 1 133 75"
-                          fill="none" stroke="#D7153A" stroke-width="24" stroke-linecap="round" opacity="0.28"/>
+                          fill="none" stroke="#D7153A" stroke-width="24" stroke-linecap="round" opacity="0.22"/>
+                    <!-- MODERATE 25–75: amber, muted -->
                     <path d="M 133 75 A 160 160 0 0 1 287 75"
-                          fill="none" stroke="#F99D1C" stroke-width="24" stroke-linecap="round" opacity="0.28"/>
+                          fill="none" stroke="#F99D1C" stroke-width="24" stroke-linecap="round" opacity="0.22"/>
+                    <!-- HEALTHY 75–100: green, muted -->
                     <path d="M 287 75 A 160 160 0 0 1 370 210"
-                          fill="none" stroke="#00a908" stroke-width="24" stroke-linecap="round" opacity="0.28"/>
+                          fill="none" stroke="#00a908" stroke-width="24" stroke-linecap="round" opacity="0.22"/>
 
-                    <!-- live arc (bold, current value) -->
+                    <!-- live arc (navy) paints over the zones up to current value -->
                     <path id="gauge-arc" d=""
                           fill="none" stroke="#002664" stroke-width="24" stroke-linecap="round"/>
 
-                    <!-- tick marks -->
+                    <!-- tick marks (radially aligned) -->
                     <g stroke="#6D7079" stroke-width="1.5">
-                        <line x1="50" y1="210" x2="50" y2="222"/>
-                        <line x1="134" y1="76" x2="128" y2="66"/>
-                        <line x1="210" y1="50" x2="210" y2="38"/>
-                        <line x1="286" y1="76" x2="292" y2="66"/>
-                        <line x1="370" y1="210" x2="370" y2="222"/>
+                        <line x1="42" y1="210" x2="54" y2="210"/>
+                        <line x1="122" y1="64" x2="130" y2="72"/>
+                        <line x1="210" y1="42" x2="210" y2="54"/>
+                        <line x1="298" y1="64" x2="290" y2="72"/>
+                        <line x1="378" y1="210" x2="366" y2="210"/>
                     </g>
 
                     <!-- tick numeric labels -->
                     <g font-family="Public Sans, sans-serif" font-size="13" font-weight="700" fill="#002664" text-anchor="middle">
-                        <text x="50" y="240">0</text>
-                        <text x="134" y="56">25</text>
+                        <text x="50" y="248">0</text>
+                        <text x="134" y="46">25</text>
                         <text x="210" y="30">50</text>
-                        <text x="286" y="56">75</text>
-                        <text x="370" y="240">100</text>
+                        <text x="286" y="46">75</text>
+                        <text x="370" y="248">100</text>
                     </g>
 
-                    <!-- band labels in fine print -->
-                    <g font-family="Public Sans, sans-serif" font-size="10" font-weight="600" fill="#6D7079" text-anchor="middle" letter-spacing="0.5">
-                        <text x="80" y="155" transform="rotate(-60 80 155)">STRESSED</text>
-                        <text x="210" y="68">MODERATE</text>
-                        <text x="340" y="155" transform="rotate(60 340 155)">HEALTHY</text>
-                    </g>
+                    <!-- zone labels — placed inside the arc at r=118, coloured to match zone -->
+                    <!-- STRESSED: midpoint of 0–25 zone ≈ 12.5% → angle = -90 + 22.5 = -67.5° from top
+                         At r=118: x=210+118·cos(180+22.5°)=210-109=101, y=210-118·sin(22.5°)=210-45=165 -->
+                    <text x="96" y="178"
+                          font-family="Public Sans, sans-serif" font-size="9" font-weight="700"
+                          fill="#D7153A" text-anchor="middle" letter-spacing="0.8"
+                          transform="rotate(-67 96 178)">STRESSED</text>
+
+                    <!-- MODERATE: midpoint of 25–75 zone = 50% → top of arc (210, 210-118=92) -->
+                    <text x="210" y="88"
+                          font-family="Public Sans, sans-serif" font-size="9" font-weight="700"
+                          fill="#b87800" text-anchor="middle" letter-spacing="0.8">MODERATE</text>
+
+                    <!-- HEALTHY: midpoint of 75–100 zone ≈ 87.5% → angle = 90-22.5 = 67.5°
+                         x=210+118·cos(22.5°)=210+109=319, y=210-118·sin(22.5°)=165 -->
+                    <text x="324" y="178"
+                          font-family="Public Sans, sans-serif" font-size="9" font-weight="700"
+                          fill="#007a06" text-anchor="middle" letter-spacing="0.8"
+                          transform="rotate(67 324 178)">HEALTHY</text>
 
                     <!-- needle -->
                     <g id="gauge-needle" transform="rotate(0 210 210)">
-                        <line x1="210" y1="210" x2="210" y2="66" stroke="#002664" stroke-width="3.5" stroke-linecap="round"/>
-                        <circle cx="210" cy="210" r="10" fill="#002664"/>
-                        <circle cx="210" cy="210" r="5" fill="#ffffff"/>
+                        <line x1="210" y1="210" x2="210" y2="70" stroke="#002664" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="210" cy="210" r="6" fill="#002664"/>
+                        <circle cx="210" cy="210" r="3" fill="#ffffff"/>
                     </g>
                 </svg>
             </div>
@@ -1509,7 +1542,7 @@ function renderGauge(value) {
     const needle = document.getElementById('gauge-needle');
     needle.querySelectorAll('line, circle').forEach(el => {
         if (el.tagName === 'line') el.setAttribute('stroke', color);
-        if (el.tagName === 'circle' && el.getAttribute('r') === '10') el.setAttribute('fill', color);
+        if (el.tagName === 'circle' && el.getAttribute('r') === '6') el.setAttribute('fill', color);
     });
 }
 
@@ -1924,10 +1957,12 @@ function tickLiveUpdate() {
     renderGauge(STATE.fsi);
 
     document.getElementById('tk-fsi').textContent = Math.round(STATE.fsi) + ' / 100';
+    document.getElementById('tk-fsi-2').textContent = Math.round(STATE.fsi) + ' / 100';
     const now = new Date();
     const hh = String(now.getHours()).padStart(2, '0');
     const mm = String(now.getMinutes()).padStart(2, '0');
     document.getElementById('tk-ts').textContent = `${hh}:${mm}`;
+    document.getElementById('tk-ts-2').textContent = `${hh}:${mm}`;
 }
 
 tickLiveUpdate();
