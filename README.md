@@ -10,7 +10,7 @@ Joule is not a substitute for the Trip Planner. It's an energy-accounting layer 
 
 ## Why this exists
 
-Australia imports roughly 90% of its refined liquid fuels. As of April 2026, the national stockhold sits at **39 days of petrol and 29 days of diesel** — well below the IEA's 90-day guidance. The Strait of Hormuz closure in March–April 2026 exposed the vulnerability in real time: Sydney petrol prices peaked above 258 c/L before the federal half-excise relief and the reopening of the strait pulled them back toward 213 c/L.
+Australia imports roughly 90% of its refined liquid fuels. As of April 2026, the national stockhold sits at **39 days of petrol and 29 days of diesel** — well below the IEA's 90-day guidance. The Strait of Hormuz closure in March–April 2026 exposed the vulnerability in real time: Sydney petrol prices peaked above 258 c/L before the federal half-excise relief and a momentary reopening of the strait pulled them back toward 213 c/L.
 
 Joule translates this national-scale fragility into a single, legible gauge and a trip-level score so that individual behaviour and state resilience are visible on the same page.
 
