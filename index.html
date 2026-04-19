@@ -247,11 +247,11 @@ html, body {
 
 .gauge-readout {
     text-align: center;
-    margin-top: 12px;
+    margin-top: 4px;
     position: relative;
 }
 .gauge-number {
-    font-size: 64px;
+    font-size: 56px;
     font-weight: 800;
     line-height: 1;
     color: var(--nsw-navy);
@@ -260,7 +260,7 @@ html, body {
     vertical-align: baseline;
 }
 .gauge-unit {
-    font-size: 18px;
+    font-size: 17px;
     color: var(--nsw-grey);
     font-weight: 500;
     margin-left: 4px;
@@ -269,9 +269,31 @@ html, body {
 .gauge-caption {
     font-size: 13px;
     color: var(--nsw-grey);
-    margin-top: 6px;
-    font-weight: 500;
+    margin-top: 4px;
+    font-weight: 600;
     letter-spacing: 0.02em;
+}
+.gauge-legend {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--nsw-grey);
+    letter-spacing: 0.03em;
+}
+.gauge-legend .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+.gauge-legend .dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 .gauge-ticker {
     display: flex;
@@ -1024,70 +1046,70 @@ footer {
                 <div class="gauge-live">Live</div>
             </div>
             <div class="gauge-svg-wrap">
-                <svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <!-- geometry: centre (210,210), radius 160 -->
+                <svg viewBox="10 10 420 230" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <!-- ==========================================================
+                         Geometry: centre (220, 215), outer arc r=160.
+                         The coloured bands are drawn at full opacity 0.75 so they
+                         stay visible. A thinner inner "live arc" sits below them
+                         (r=140, 10px wide) to indicate the current value's extent.
+                         ========================================================== -->
 
-                    <!-- coloured zone bands form the full track background -->
-                    <!-- STRESSED 0–25: red, muted -->
-                    <path d="M 50 210 A 160 160 0 0 1 133 75"
-                          fill="none" stroke="#D7153A" stroke-width="24" stroke-linecap="round" opacity="0.22"/>
-                    <!-- MODERATE 25–75: amber, muted -->
-                    <path d="M 133 75 A 160 160 0 0 1 287 75"
-                          fill="none" stroke="#F99D1C" stroke-width="24" stroke-linecap="round" opacity="0.22"/>
-                    <!-- HEALTHY 75–100: green, muted -->
-                    <path d="M 287 75 A 160 160 0 0 1 370 210"
-                          fill="none" stroke="#00a908" stroke-width="24" stroke-linecap="round" opacity="0.22"/>
+                    <!-- Background track -->
+                    <path d="M 60 215 A 160 160 0 0 1 380 215"
+                          fill="none" stroke="#eef1f5" stroke-width="28" stroke-linecap="round"/>
 
-                    <!-- live arc (navy) paints over the zones up to current value -->
+                    <!-- Coloured band segments (primary visual; full saturation) -->
+                    <!-- STRESSED: value 0–33 → arc from (60,215) to (140,76) -->
+                    <path d="M 60 215 A 160 160 0 0 1 140 76"
+                          fill="none" stroke="#D7153A" stroke-width="28" stroke-linecap="round" opacity="0.78"/>
+                    <!-- MODERATE: value 33–66 → (140,76) to (300,76) -->
+                    <path d="M 140 76 A 160 160 0 0 1 300 76"
+                          fill="none" stroke="#F99D1C" stroke-width="28" stroke-linecap="round" opacity="0.78"/>
+                    <!-- HEALTHY: value 66–100 → (300,76) to (380,215) -->
+                    <path d="M 300 76 A 160 160 0 0 1 380 215"
+                          fill="none" stroke="#00a908" stroke-width="28" stroke-linecap="round" opacity="0.78"/>
+
+                    <!-- Inner "pointer track" - thin navy arc showing the needle's current extent,
+                         drawn on a slightly smaller radius so it sits inside the coloured bands -->
                     <path id="gauge-arc" d=""
-                          fill="none" stroke="#002664" stroke-width="24" stroke-linecap="round"/>
+                          fill="none" stroke="#002664" stroke-width="4" stroke-linecap="round"
+                          opacity="0.35"/>
 
-                    <!-- tick marks (radially aligned) -->
-                    <g stroke="#6D7079" stroke-width="1.5">
-                        <line x1="42" y1="210" x2="54" y2="210"/>
-                        <line x1="122" y1="64" x2="130" y2="72"/>
-                        <line x1="210" y1="42" x2="210" y2="54"/>
-                        <line x1="298" y1="64" x2="290" y2="72"/>
-                        <line x1="378" y1="210" x2="366" y2="210"/>
+                    <!-- Tick marks - small white notches on the coloured bands -->
+                    <g stroke="#ffffff" stroke-width="2.5" stroke-linecap="round">
+                        <line x1="107" y1="102" x2="113" y2="108"/>  <!-- 25 -->
+                        <line x1="220" y1="55"  x2="220" y2="63"/>   <!-- 50 -->
+                        <line x1="333" y1="102" x2="327" y2="108"/>  <!-- 75 -->
                     </g>
 
-                    <!-- tick numeric labels -->
-                    <g font-family="Public Sans, sans-serif" font-size="13" font-weight="700" fill="#002664" text-anchor="middle">
-                        <text x="50" y="248">0</text>
-                        <text x="134" y="46">25</text>
-                        <text x="210" y="30">50</text>
-                        <text x="286" y="46">75</text>
-                        <text x="370" y="248">100</text>
+                    <!-- Tick numeric labels on outside -->
+                    <g font-family="Public Sans, sans-serif" font-size="12" font-weight="700"
+                       fill="#6D7079" text-anchor="middle">
+                        <text x="26"  y="222">0</text>
+                        <text x="80"  y="76">25</text>
+                        <text x="220" y="32">50</text>
+                        <text x="360" y="76">75</text>
+                        <text x="414" y="222">100</text>
                     </g>
 
-                    <!-- zone labels — placed inside the arc at r=118, coloured to match zone -->
-                    <!-- STRESSED: midpoint of 0–25 zone ≈ 12.5% → angle = -90 + 22.5 = -67.5° from top
-                         At r=118: x=210+118·cos(180+22.5°)=210-109=101, y=210-118·sin(22.5°)=210-45=165 -->
-                    <text x="96" y="178"
-                          font-family="Public Sans, sans-serif" font-size="9" font-weight="700"
-                          fill="#D7153A" text-anchor="middle" letter-spacing="0.8"
-                          transform="rotate(-67 96 178)">STRESSED</text>
-
-                    <!-- MODERATE: midpoint of 25–75 zone = 50% → top of arc (210, 210-118=92) -->
-                    <text x="210" y="88"
-                          font-family="Public Sans, sans-serif" font-size="9" font-weight="700"
-                          fill="#b87800" text-anchor="middle" letter-spacing="0.8">MODERATE</text>
-
-                    <!-- HEALTHY: midpoint of 75–100 zone ≈ 87.5% → angle = 90-22.5 = 67.5°
-                         x=210+118·cos(22.5°)=210+109=319, y=210-118·sin(22.5°)=165 -->
-                    <text x="324" y="178"
-                          font-family="Public Sans, sans-serif" font-size="9" font-weight="700"
-                          fill="#007a06" text-anchor="middle" letter-spacing="0.8"
-                          transform="rotate(67 324 178)">HEALTHY</text>
-
-                    <!-- needle -->
-                    <g id="gauge-needle" transform="rotate(0 210 210)">
-                        <line x1="210" y1="210" x2="210" y2="70" stroke="#002664" stroke-width="2.5" stroke-linecap="round"/>
-                        <circle cx="210" cy="210" r="6" fill="#002664"/>
-                        <circle cx="210" cy="210" r="3" fill="#ffffff"/>
+                    <!-- Needle -->
+                    <g id="gauge-needle" transform="rotate(0 220 215)">
+                        <line x1="220" y1="215" x2="220" y2="78"
+                              stroke="#002664" stroke-width="3.5" stroke-linecap="round"/>
+                        <circle cx="220" cy="215" r="11" fill="#002664"/>
+                        <circle cx="220" cy="215" r="5" fill="#ffffff"/>
                     </g>
                 </svg>
             </div>
+
+            <!-- Band legend - clean horizontal row under the gauge with colour dots -->
+            <div class="gauge-legend">
+                <span class="legend-item"><span class="dot" style="background:#D7153A"></span>Stressed</span>
+                <span class="legend-item"><span class="dot" style="background:#F99D1C"></span>Moderate</span>
+                <span class="legend-item"><span class="dot" style="background:#00a908"></span>Healthy</span>
+            </div>
+
+            <!-- Score readout below the gauge -->
             <div class="gauge-readout">
                 <span class="gauge-number" id="gauge-num">58</span><span class="gauge-unit">/ 100</span>
                 <div class="gauge-caption" id="gauge-caption">Watch · reserves thinning</div>
@@ -1344,6 +1366,11 @@ footer {
         <div>
             <h4>Joule</h4>
             <p>A public-facing energy accounting service concept for Transport for NSW and NSW Climate &amp; Energy Action. Joule is an awareness tool — it does not collect, track, or log your trips.</p>
+
+            <h4 style="margin-top:24px;">Useful External Resources</h4>
+            <ul>
+                <li><a href="https://abetterrouteplanner.com/" target="_blank" rel="noopener">A Better Route Planner</a> — EV route and charging optimiser</li>
+            </ul>
         </div>
         <div>
             <h4>Data sources</h4>
@@ -1511,11 +1538,15 @@ function valueToAngle(v) {
 
 function renderGauge(value) {
     const angle = valueToAngle(value);
-    document.getElementById('gauge-needle').setAttribute('transform', `rotate(${angle} 210 210)`);
+    // Needle rotates around centre (220, 215)
+    document.getElementById('gauge-needle').setAttribute('transform', `rotate(${angle} 220 215)`);
+    // Score readout (span)
     document.getElementById('gauge-num').textContent = Math.round(value);
 
-    // arc from start to current — centre (210,210), radius 160
-    const startX = 50, startY = 210, cx = 210, cy = 210, r = 160;
+    // Thin "pointer track" arc on inner radius 140 (sits inside the coloured bands)
+    // 0% at (80, 215), 100% at (360, 215), top at (220, 75)
+    const cx = 220, cy = 215, r = 140;
+    const startX = cx - r, startY = cy; // (80, 215)
     const theta = Math.PI * (value / 100); // 0..π
     const endAngle = Math.PI - theta;
     const endX = cx + r * Math.cos(endAngle);
@@ -1524,20 +1555,20 @@ function renderGauge(value) {
     const arc = `M ${startX} ${startY} A ${r} ${r} 0 ${largeArc} 1 ${endX} ${endY}`;
     document.getElementById('gauge-arc').setAttribute('d', arc);
 
-    // caption
+    // Caption & needle colour by band
     let caption = 'Moderate · holding steady';
     let color = '#002664';
-    if (value < 40) { caption = 'Stressed · every shift helps'; color = '#D7153A'; }
-    else if (value < 60) { caption = 'Watch · reserves thinning'; color = '#dc5800'; }
-    else if (value < 75) { caption = 'Moderate · holding steady'; color = '#002664'; }
-    else { caption = 'Healthy · network has headroom'; color = '#00a908'; }
+    if (value < 40)      { caption = 'Stressed · every shift helps';   color = '#D7153A'; }
+    else if (value < 60) { caption = 'Watch · reserves thinning';       color = '#dc5800'; }
+    else if (value < 75) { caption = 'Moderate · holding steady';       color = '#002664'; }
+    else                 { caption = 'Healthy · network has headroom';  color = '#00a908'; }
     document.getElementById('gauge-caption').textContent = caption;
 
-    // needle colour match
+    // Needle colour match (r=11 is the outer pivot disc)
     const needle = document.getElementById('gauge-needle');
     needle.querySelectorAll('line, circle').forEach(el => {
         if (el.tagName === 'line') el.setAttribute('stroke', color);
-        if (el.tagName === 'circle' && el.getAttribute('r') === '6') el.setAttribute('fill', color);
+        if (el.tagName === 'circle' && el.getAttribute('r') === '11') el.setAttribute('fill', color);
     });
 }
 
