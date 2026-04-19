@@ -128,4 +128,16 @@ MIT — see `LICENSE`. Transport for NSW brand marks and NSW Government visual i
 
 ---
 
+## AI acknowledgement
+
+Parts of this project were built with the assistance of [Claude](https://claude.ai) (Anthropic). All prompting, direction, and editorial decisions were made by the project authors.
+
+| Feature | Tool |
+|---|---|
+| Gauge cleanup — needle sizing, tick alignment, band opacity | Claude (Anthropic) |
+| Zone labels (STRESSED / MODERATE / HEALTHY) repositioned inside arc | Claude (Anthropic) |
+| Seamless ticker loop (JS `requestAnimationFrame` approach) | Claude (Anthropic) |
+
+---
+
 by Unit 8200

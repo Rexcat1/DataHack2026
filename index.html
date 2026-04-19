@@ -907,9 +907,8 @@ footer {
 }
 .ticker-inner {
     display: flex;
-    gap: 0;
     white-space: nowrap;
-    animation: tick 45s linear infinite;
+    will-change: transform;
 }
 .ticker-set {
     display: flex;
@@ -932,10 +931,6 @@ footer {
 .ticker-item.dot::before {
     content: ''; width: 6px; height: 6px; border-radius: 50%;
     background: var(--nsw-blue);
-}
-@keyframes tick {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
 }
 
 /* ==========================================================
@@ -1970,6 +1965,32 @@ setInterval(tickLiveUpdate, 12000);
 
 // first render
 render();
+
+// ==========================================================
+// SEAMLESS TICKER — JS-driven, measures exact set width
+// ==========================================================
+(function () {
+    const inner = document.querySelector('.ticker-inner');
+    const set1  = document.querySelectorAll('.ticker-set')[0];
+    const PX_PER_SEC = 45;
+    let x = 0;
+    let lastT = null;
+
+    function step(ts) {
+        if (!lastT) lastT = ts;
+        const dt = ts - lastT;
+        lastT = ts;
+
+        const setW = set1.offsetWidth;
+        x -= PX_PER_SEC * (dt / 1000);
+        if (x <= -setW) x += setW;
+
+        inner.style.transform = `translateX(${x}px)`;
+        requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+})();
 </script>
 
 </body>
