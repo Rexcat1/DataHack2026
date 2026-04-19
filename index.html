@@ -1612,7 +1612,8 @@ function calcModeImpact(mode, corridor, km, freq, occ) {
         kwhPerWeek: kwhPerTrip * freq,
         litresPerWeek: litresPerTrip * freq,
         cost: cost,
-        travelTime: travelTime
+        travelTime: travelTime,
+        walkTime: km / 5 * 60  // walking at ~5 km/h
     };
 }
 
@@ -1905,7 +1906,11 @@ function renderCompare(corridor, km, freq, currentMode) {
                 </div>
                 <div>
                     <div class="alt-stat-label">Time / trip</div>
-                    <div class="alt-stat-val">${Math.round(r.impact.travelTime)}<span class="u">min</span></div>
+                    ${r.mode === 'active'
+                        ? `<div class="alt-stat-val">${Math.round(r.impact.travelTime)}<span class="u">min cycle</span></div>
+                           <div class="alt-stat-val" style="font-size:14px;opacity:0.7">${Math.round(r.impact.walkTime)}<span class="u">min walk</span></div>`
+                        : `<div class="alt-stat-val">${Math.round(r.impact.travelTime)}<span class="u">min</span></div>`
+                    }
                 </div>
             </div>
         </div>`;
